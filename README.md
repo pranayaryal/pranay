@@ -1,2 +1,2 @@
 # pranay
-trying githubpages
+trying jquery
