@@ -1,2 +1,2 @@
 # pranay
-trying jquery
+bar charts - stacked and heaped
