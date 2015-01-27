@@ -1,120 +1,149 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: auto;
-  position: relative;
-  width: 960px;
-}
-text {
-  font: 10px sans-serif;
-}
-.axis path {
-  display: none;
-}
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-.group-label {
-  font-weight: bold;
-  text-anchor: end;
-}
-form {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-</style>
-<form>
-  <label><input type="radio" name="mode" value="multiples" checked> Multiples</label>
-  <label><input type="radio" name="mode" value="stacked"> Stacked</label>
-</form>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script>
-var parseDate = d3.time.format("%Y-%m").parse,
-    formatYear = d3.format("02d"),
-    formatDate = function(d) { return "Q" + ((d.getMonth() / 3 | 0) + 1) + formatYear(d.getFullYear() % 100); };
-var margin = {top: 10, right: 20, bottom: 20, left: 60},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-var y0 = d3.scale.ordinal()
-    .rangeRoundBands([height, 0], .2);
-var y1 = d3.scale.linear();
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1, 0);
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-    .tickFormat(formatDate);
-var nest = d3.nest()
-    .key(function(d) { return d.group; });
-var stack = d3.layout.stack()
-    .values(function(d) { return d.values; })
-    .x(function(d) { return d.date; })
-    .y(function(d) { return d.value; })
-    .out(function(d, y0) { d.valueOffset = y0; });
-var color = d3.scale.category10();
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-d3.tsv("data.tsv", function(error, data) {
-  data.forEach(function(d) {
-    d.date = parseDate(d.date);
-    d.value = +d.value;
-  });
-  var dataByGroup = nest.entries(data);
-  stack(dataByGroup);
-  x.domain(dataByGroup[0].values.map(function(d) { return d.date; }));
-  y0.domain(dataByGroup.map(function(d) { return d.key; }));
-  y1.domain([0, d3.max(data, function(d) { return d.value; })]).range([y0.rangeBand(), 0]);
-  var group = svg.selectAll(".group")
-      .data(dataByGroup)
-    .enter().append("g")
-      .attr("class", "group")
-      .attr("transform", function(d) { return "translate(0," + y0(d.key) + ")"; });
-  group.append("text")
-      .attr("class", "group-label")
-      .attr("x", -6)
-      .attr("y", function(d) { return y1(d.values[0].value / 2); })
-      .attr("dy", ".35em")
-      .text(function(d) { return "Group " + d.key; });
-  group.selectAll("rect")
-      .data(function(d) { return d.values; })
-    .enter().append("rect")
-      .style("fill", function(d) { return color(d.group); })
-      .attr("x", function(d) { return x(d.date); })
-      .attr("y", function(d) { return y1(d.value); })
-      .attr("width", x.rangeBand())
-      .attr("height", function(d) { return y0.rangeBand() - y1(d.value); });
-  group.filter(function(d, i) { return !i; }).append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + y0.rangeBand() + ")")
-      .call(xAxis);
-  d3.selectAll("input").on("change", change);
-  var timeout = setTimeout(function() {
-    d3.select("input[value=\"stacked\"]").property("checked", true).each(change);
-  }, 2000);
-  function change() {
-    clearTimeout(timeout);
-    if (this.value === "multiples") transitionMultiples();
-    else transitionStacked();
-  }
-  function transitionMultiples() {
-    var t = svg.transition().duration(750),
-        g = t.selectAll(".group").attr("transform", function(d) { return "translate(0," + y0(d.key) + ")"; });
-    g.selectAll("rect").attr("y", function(d) { return y1(d.value); });
-    g.select(".group-label").attr("y", function(d) { return y1(d.values[0].value / 2); })
-  }
-  function transitionStacked() {
-    var t = svg.transition().duration(750),
-        g = t.selectAll(".group").attr("transform", "translate(0," + y0(y0.domain()[0]) + ")");
-    g.selectAll("rect").attr("y", function(d) { return y1(d.value + d.valueOffset); });
-    g.select(".group-label").attr("y", function(d) { return y1(d.values[0].value / 2 + d.values[0].valueOffset); })
-  }
-});
-</script>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Pranay : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Pranay</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/pranayaryal/pranay">View on GitHub</a>
+
+          <h1 id="project_title">Pranay</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/pranayaryal/pranay/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/pranayaryal/pranay/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+
+<p>Push Your App to GitHub</p>
+
+<p>Created by Alyson La, @realalysonla</p>
+
+<p>Things you need before you get started</p>
+
+<p>Git &amp; GitHub</p>
+
+<p>Check if Git is installed
+In the terminal type git --version (1.8 or higher preferred)
+If not, download Git <a href="http://git-scm.com/downloads">here</a>. Then, setup your local Git profile - In the terminal:
+Type git config --global user.name "your-name"
+Type git config --global user.email "your-email"</p>
+
+<p>To check if Git is already config-ed you can type git config --list
+Create a free GitHub account or login if you already have one
+COACH: Talk a little about git, verison control, and open source</p>
+
+<p>Push your app to GitHub using the command line</p>
+
+<p>On your GitHub profile click “new repo” screen shot 2013-06-01 at 12 38 50 pm give it a name (example: rails-girls), brief description, choose the “public” repo option, and click “create repository”.</p>
+
+<p>In the command line–make sure you cd into your railgirls folder–and type:</p>
+
+<p>git init</p>
+
+<p>This initializes a git repository in your project</p>
+
+<p>Note: If you’ve already done the Heroku guide, then you’ve already initialized a git repository &amp; you can move on to the next steps.</p>
+
+<p>Next check if a file called READEME.rdoc exists in your railsgirl directory:</p>
+
+<p>dir README.rdoc
+Choose your operating system: Windows | Other
+If the file doesn’t exist, create it by typing:</p>
+
+<p>touch README.rdoc</p>
+
+<p>COACH: Talk a little about README.rdoc</p>
+
+<p>Then type:</p>
+
+<p>git status</p>
+
+<p>This will list out all the files in your working directory.</p>
+
+<p>COACH: Talk about some of your favorite git commands</p>
+
+<p>Then type:</p>
+
+<p>git add .</p>
+
+<p>This adds in all of your files &amp; changes so far to a staging area.</p>
+
+<p>Then type:</p>
+
+<p>git commit -m "first commit"</p>
+
+<p>This commits all of your files, adding the message “first commit”</p>
+
+<p>Next type:</p>
+
+<p>git remote add origin <a href="https://github.com/username/rails-girls.git">https://github.com/username/rails-girls.git</a></p>
+
+<p>Your GitHub Repository page will list the repository URL, so feel free to copy and paste from there, rather than typing it in manually. You can copy and paste the link from your GitHub repository page by clicking the clipboard icon next to the URL.</p>
+
+<p>This creates a remote, or connection, named “origin” pointing at the GitHub repository you just created.</p>
+
+<p>Then type:</p>
+
+<p>git push -u origin master</p>
+
+<p>This sends your commits in your “master” branch to GitHub</p>
+
+<p>Congratulations your app is on GitHub! Go check it out by going to the same url you used above: <a href="https://github.com/username/rails-girls">https://github.com/username/rails-girls</a> (without the .git part)</p>
+
+<p>If you want to continue making changes and pushing them to GitHub you’ll just need to use the following three commands:</p>
+
+<p>git add .</p>
+
+<p>git commit -m "type your commit message here"</p>
+
+<p>git push origin master</p>
+
+<p>What’s next?</p>
+
+<p>Be a Part of the Open Source Community</p>
+
+<p>Follow your fellow Rails Girls &amp; coaches on GitHub
+Star or watch their projects
+Fork a repo, then clone and push changes to your fork. Share the changes with the originator by sending them a pull request!
+Create an issue on a project when you find a bug
+Explore other open source projects - search by programming languange or key word
+Learn more Git</p>
+
+<p>Check out trygit.org
+Use a Git Cheatsheet
+Look up Git Commands at git-scm.org</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Pranay maintained by <a href="https://github.com/pranayaryal">pranayaryal</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
