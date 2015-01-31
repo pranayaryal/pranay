@@ -1,40 +1,52 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Pranay : ">
+    <meta name="viewport" content="width=640">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
 
-    <title>Useful Git and github tips</title>
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Pranay by pranayaryal</title>
   </head>
 
   <body>
+    <a id="forkme_banner" href="https://github.com/pranayaryal/pranay">View on GitHub</a>
+    <div class="shell">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/pranayaryal/pranay">View on GitHub</a>
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Pranay</h1>
+            <h2></h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
 
-          <h1 id="project_title">Pranay</h1>
-          <h2 id="project_tagline"></h2>
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/pranayaryal/pranay/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/pranayaryal/pranay/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/pranayaryal/pranay/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/pranayaryal/pranay/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simple git commands for syncing remote and local repository.</h3>
+      <span class="banner-fix"></span>
 
-<p>By now you've seen the anomaly
+
+      <section id="main_content">
+        <p>By now you've seen the anomaly
 detection algorithm and we've
 also talked about how to
 evaluate an anomaly detection
@@ -45,14 +57,14 @@ things that has a huge
 effect on how well it
 does, is what features you
 use, and what features you choose,
-to give the anomaly detection algorithm.</p>
-<p>So in this video, what I'd
+to give the anomaly detection algorithm.
+So in this video, what I'd
 like to do is say a few
 words, give some suggestions and
 guidelines for how to
 go about designing or selecting
-features give to an anomaly detection algorithm.</p>
-<p>In our anomaly detection algorithm,
+features give to an anomaly detection algorithm.
+In our anomaly detection algorithm,
 one of the things we did was
 model the features using this sort of Gaussian distribution.
 With xi to mu
@@ -90,8 +102,8 @@ If this is what my data
 looks like, what I'll often
 do is play with different
 transformations of the data in order
-to make it look more Gaussian.</p>
-<p>And again the algorithm will usually work okay, even if you don't.
+to make it look more Gaussian.
+And again the algorithm will usually work okay, even if you don't.
 But if you use these transformations
 to make your data more gaussian, it might work a bit better.
 So given the data set
@@ -117,8 +129,8 @@ and replace it with log
 of x1 and this is
 my new x1 that I'll plot
 to the histogram over on the right, and this looks much
-more Guassian.</p>
-<p>Rather than just a log transform some other things you can
+more Guassian.
+Rather than just a log transform some other things you can
 do, might be, let's say
 I have a different feature x2,
 maybe I'll replace that will
@@ -138,8 +150,8 @@ So, I might have x4 and
 maybe I might instead replace
 that with x4 to the power
 of something else, maybe to the
-power of 1/3.</p>
-<p>And these, all of
+power of 1/3.
+And these, all of
 these, this one, this
 exponent parameter, or the
 C parameter, all of these
@@ -226,8 +238,8 @@ wrong, and see if
 we can come up with extra features
 to help the algorithm do
 better on the examples
-that it got wrong in the cross-validation set.</p>
-<p>So lets try
+that it got wrong in the cross-validation set.
+So lets try
 to reason through an example of this process.
 In anomaly detection, we are
 hoping that p of x will
@@ -398,9 +410,23 @@ to try to capture different types of anomalies.
 And with these sorts of guidelines hopefully that will help you
 to choose good features, to give to
 your anomaly detection algorithm, to
-help it capture all sorts of anomalies.
-</p>
+help it capture all sorts of anomalies.</p>
+      </section>
 
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/pranayaryal">pranayaryal</a> can be found on <a href="https://github.com/pranayaryal/pranay">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
 
+    </div>
+
+    
   </body>
 </html>
