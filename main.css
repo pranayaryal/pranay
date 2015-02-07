@@ -1,7 +1,7 @@
-a {
- text-decoration:none;
-  
-}
+/*******************
+GENERAL
+****************/
+
 
 #wrapper {
   max-width:940px;
@@ -9,13 +9,55 @@ a {
   padding:0 5%;
 }
 
+a {
+ text-decoration:none;
+}
+
+
+
+/*******************
+HEADING
+****************/
+
+#logo {
+  text-align:center;
+  margin:0;
+  
+}
+
+
+
+/*******************
+COLORS
+****************/
+
+/*site body*/
+body {
+  background-color:white;
+  color:#999;
+}
+
+
+/*green header*/
 header {
   background:#6ab47b;
   border-color:#599a68;
 }
 
+/*nav background on mobile devices */
+nav {
+ background:#599a68; 
+}
+
+/*logo text*/
 h1,h2 {
   color:#fff; 
+}
+
+/*links*/
+a {
+ 
+ color:#6ab47b;
 }
 
 #logo {
@@ -23,25 +65,15 @@ h1,h2 {
   margin:0;
 }
 
-nav {
- background:#599a68; 
-}
-
 nav a.selected, nav a:hover {
   color:#32673f; 
 }
 
-body {
-  background-color:white;
-  color:#999;
-}
-img {
-  width:400px;
-}
+
 
 footer img {
   width:30px;
   color:#d3d3d3;
   align:left;
 }
-}
+
