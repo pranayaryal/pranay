@@ -38,4 +38,8 @@ body {
 img {
   width:400px;
 }
+
+footer.photo {
+  width:50px;
+}
 }
